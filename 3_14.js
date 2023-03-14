@@ -189,6 +189,21 @@ const directionalLight = new THREE.DirectionalLight(0xFEF9E7 , 2);
 const light = new THREE.AmbientLight( 0x404040, 0.5); // soft white light
 scene.add( light );
 
+//fog
+{
+  const color = 0xFFFFFF;
+  const density = 0.2;
+  scene.fog = new THREE.FogExp2(color, density);
+}
+
+
+
+
+
+
+
+//mouse
+
 function changeCursor(event) {
 	if (event.target === renderer.domElement) {
 	  renderer.domElement.style.cursor = 'pointer';
@@ -208,6 +223,10 @@ function changeCursor(event) {
 	  changeCursor(event);
 	}
   });
+
+
+
+
   
 
   
