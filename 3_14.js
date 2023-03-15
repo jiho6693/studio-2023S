@@ -4,6 +4,10 @@ import { GLTFLoader } from 'GLTFLoader';
 // import { DirectionalLight } from 'three';
 // import { OBJLoader } from 'OBJLoader';
 
+const apiKey = "2fcd83828c7a6dd5b3be29bc0b6fdd9c"
+const url = 'https://api.openweathermap.org/data/2.5/weather?lat=41.825226&lon=-71.418884&units=imperial&appid=2fcd83828c7a6dd5b3be29bc0b6fdd9c';
+
+
 
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
@@ -189,12 +193,36 @@ const directionalLight = new THREE.DirectionalLight(0xFEF9E7 , 2);
 const light = new THREE.AmbientLight( 0x404040, 0.5); // soft white light
 scene.add( light );
 
-//fog
-{
-  const color = 0xFFFFFF;
-  const density = 0.2;
-  scene.fog = new THREE.FogExp2(color, density);
-}
+// //fog
+// {
+//   const color = 0xFFFFFF;
+//   const density = 0.2;
+//   scene.fog = new THREE.FogExp2(color, density);
+// }
+
+//rain drop
+function addRain() {
+	// raindrop geometry and material
+	var rainDropGeometry = new THREE.BoxGeometry(0.1, 0.1, 0.1);
+	var rainDropMaterial = new THREE.MeshBasicMaterial({
+	  color: 0xAAAAAA,
+	  transparent: true,
+	  opacity: 0.5,
+	});
+  
+	// add raindrops to scene
+	for (var i = 0; i < 100; i++) {
+	  var rainDrop = new THREE.Mesh(rainDropGeometry, rainDropMaterial);
+	  rainDrop.position.set(
+		Math.random() * 200 - 100,
+		Math.random() * 200 - 100,
+		Math.random() * 200 - 100
+	  );
+	  scene.add(rainDrop);
+	}
+  }
+
+  addRain();
 
 
 
@@ -273,8 +301,42 @@ window.addEventListener( 'pointerdown', onMouseClick, false );
 }
 window.addEventListener('resize', onWindowResize);
 
+//weather
+//rain
+const starGeo = new THREE.BufferGeometry ()
+            const vertices = [];
+            for (let i = 0; i < 15000; i++) {
+            const x = Math.random() * 400 - 300;
+            const y = Math.random() * 500 - 250;
+            const z = Math.random() * 400 - 200;
+            vertices.push(x, y, z);
+            }
+            starGeo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            let starMaterial = new THREE.PointsMaterial({
+                color:0xaaaaaa,
+                size:1,
+                transparent: true
+            })
+            const stars = new THREE.Points(starGeo,starMaterial)
+            
+//fog
+const fogcolor = 0xFFFFFF;
+const fogdensity = 0.2;
 
-//animiate  
+//animiate
+fetch(url)
+  .then(response => response.json())
+  .then((data) => {
+    const weather = data.weather[0].main;
+    if(weather === "Snow"|| weather === "Rain")
+	{
+        scene.add(stars)
+    } else(weather === "Cloudy")
+	{
+        scene.fog = new THREE.FogExp2(fogcolor, fogdensity);
+	}
+
+  })  
 
 
 function render(time) {
