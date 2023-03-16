@@ -66,7 +66,7 @@ import * as THREE from 'three';
 				starGeo.attributes.position.needsUpdate = true;
 				stars.rotation.y +=0.002;
 				requestAnimationFrame(animate);
-				renderer.render(scene, camera); ㅇ
+				renderer.render(scene, camera); 
 			  }
 
 			animate();

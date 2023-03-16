@@ -76,7 +76,7 @@ import { OrbitControls } from 'OrbitControls';
 				transparent: true
 				});
 
-				for(let p=0; p<15; p++) {
+				for(let p=0; p<25; p++) {
 				let cloud = new THREE.Mesh(cloudGeo,cloudMaterial);
 				cloud.position.set(
 					Math.random()*800 -400,
@@ -86,7 +86,7 @@ import { OrbitControls } from 'OrbitControls';
 				cloud.rotation.x = 1.16;
 				cloud.rotation.y = -0.12;
 				cloud.rotation.z = Math.random()*360;
-				cloud.material.opacity = 0.03;
+				cloud.material.opacity = 0.1;
 				cloudVertices.push(cloud);
 				scene.add(cloud);
 				}})
