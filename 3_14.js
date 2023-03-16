@@ -314,7 +314,7 @@ const starGeo = new THREE.BufferGeometry ()
             starGeo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
             let starMaterial = new THREE.PointsMaterial({
                 color:0xaaaaaa,
-                size:1,
+                size:0.1,
                 transparent: true
             })
             const stars = new THREE.Points(starGeo,starMaterial)
@@ -323,20 +323,36 @@ const starGeo = new THREE.BufferGeometry ()
 const fogcolor = 0xFFFFFF;
 const fogdensity = 0.2;
 
-//animiate
+//wether if
 fetch(url)
   .then(response => response.json())
   .then((data) => {
     const weather = data.weather[0].main;
-    if(weather === "Snow"|| weather === "Rain")
+    if(weather === "Snow"|| weather === "Clouds")
 	{
         scene.add(stars)
-    } else(weather === "Cloudy")
+    } else if(weather === "Clouds")
 	{
         scene.fog = new THREE.FogExp2(fogcolor, fogdensity);
+	}else{
+
 	}
 
   })  
+
+  function animate() {
+	const positions = starGeo.attributes.position.array;
+	for (let i = 1; i < positions.length; i += 3) {
+		if (positions[i] < -200) {
+		positions[i] = 200;
+		}
+		positions[i] -= 3;
+	}
+	starGeo.attributes.position.needsUpdate = true;
+	stars.rotation.y +=0.002;
+	requestAnimationFrame(animate);
+	renderer.render(scene, camera); ㅇ
+  }
 
 
 function render(time) {

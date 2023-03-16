@@ -1,5 +1,8 @@
 const apiKey = "2fcd83828c7a6dd5b3be29bc0b6fdd9c"
-const url = 'https://api.openweathermap.org/data/2.5/weather?lat=41.825226&lon=-71.418884&units=imperial&appid=2fcd83828c7a6dd5b3be29bc0b6fdd9c';
+let lat = 41.825226; 
+let lon = -71.418884;
+
+const url = 'https://api.openweathermap.org/data/2.5/weather?lat=&{lat}&lon=-71.418884&units=imperial&appid=2fcd83828c7a6dd5b3be29bc0b6fdd9c';
 
 fetch(url)
   .then(response => response.json())
