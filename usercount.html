@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>접속자 수에 따른 웹페이지 변화 예제</title>
+</head>
+<body onload="updateUserCount()">
+  <h1>안녕하세요!</h1>
+  <p id="userCount">현재 접속 중인 사용자 수: </p>
+
+  <script>
+    function updateUserCount() {
+      // 현재 접속 중인 사용자 수를 계산합니다.
+      var userCount = navigator.hardwareConcurrency || 1; // 예시로 하드웨어 스레드 수를 이용합니다.
+
+      // 페이지의 "userCount" 요소를 찾아 값을 변경합니다.
+      var userCountElement = document.getElementById("userCount");
+      userCountElement.innerHTML = "현재 접속 중인 사용자 수: " + userCount;
+
+      // 사용자 수에 따라 페이지의 특정 요소를 변경합니다.
+      if (userCount > 10) {
+        userCountElement.style.color = "red";
+      } else {
+        userCountElement.style.color = "black";
+      }
+    }
+
+    var count = 0;
+
+// 카운트 증가 함수
+  function increaseCount() {
+    count++;
+    console.log(count); // 콘솔에 현재 카운트 출력
+  }
+
+  // 윈도우 로드 이벤트에 카운트 증가 함수 등록
+  window.onload = increaseCount;
+
+
+  </script>
+</body>
+</html>

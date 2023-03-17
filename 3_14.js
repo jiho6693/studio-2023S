@@ -74,7 +74,7 @@ loader01.load(
     gltf.scene.traverse( function ( child ){
       child.castShadow = true;
       child.receiveShadow = true;
-	  child.userData.link = "https://en.wikipedia.org/wiki/Duck";
+	  child.userData.link = "https://jiho.cargo.site/Reading-4";
      });
 		scene.add( gltf.scene );
 
@@ -114,7 +114,7 @@ loader1.load(
     sca.scene.traverse( function ( child ){
       child.castShadow = true;
       child.receiveShadow = true;
-	  child.userData.link = 'https://www.google.com/webhp?authuser=1';
+	  child.userData.link = 'https://vimeo.com/747416442';
      });
 		scene.add( sca.scene );
 
