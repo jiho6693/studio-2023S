@@ -58,7 +58,7 @@ import { OrbitControls } from 'OrbitControls';
             starGeo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
             let starMaterial = new THREE.PointsMaterial({
                 color:0xaaaaaa,
-                size:0.1,
+                size:1,
                 transparent: true
             })
             const stars = new THREE.Points(starGeo,starMaterial)
@@ -86,7 +86,7 @@ import { OrbitControls } from 'OrbitControls';
 				cloud.rotation.x = 1.16;
 				cloud.rotation.y = -0.12;
 				cloud.rotation.z = Math.random()*360;
-				cloud.material.opacity = 0.1;
+				cloud.material.opacity = 1;
 				cloudVertices.push(cloud);
 				scene.add(cloud);
 				}})
