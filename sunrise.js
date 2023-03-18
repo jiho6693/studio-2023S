@@ -3,8 +3,9 @@ let lat = "41.825226";
 let lon = "-71.418884";
 
 
-const url = 'https://api.sunrise-sunset.org/json?lat=' + lat +'&lon=' + lon + '&date=today';
+const url = 'https://api.sunrise-sunset.org/json?lat=' + lat +'&lng=' + lon + '&date=today';
 
-var data = new Date();
 
-console.log(data)
+fetch(url)
+  .then(response => response.json())
+  .then((data) => { console.log(data)})
