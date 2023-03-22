@@ -56,6 +56,15 @@ const orbitControls = new OrbitControls(camera, renderer.domElement);
 	 //orbitControls.maxPolarAngle = Math.PI / 2;   //=3.14/2
 
 
+const geometry = new THREE.PlaneGeometry( 1, 1 );
+const material = new THREE.MeshBasicMaterial( {color: 0xffffff, side: THREE.DoubleSide} );
+const plane = new THREE.Mesh( geometry, material );
+plane.scale.set(2000, 2000, 2000); 
+plane.position.set(0.0, -1.5, 0.0); 
+plane.rotation.x = Math.PI / 2;
+scene.add( plane );
+
+
 
 //obj
 const loader01 = new GLTFLoader();
@@ -139,17 +148,18 @@ loader1.load(
 	}
 );
 
-const loader2 = new GLTFLoader();
+const loader3 = new GLTFLoader();
 // // load a resource
-loader2.load(
+loader3.load(
 	// resource URL
-	'source/house.glb',
+	'source/goodby.glb',
 	// called when the resource is loaded
 	function ( sca ) {
-    sca.scene.scale.set(0.01, 0.01, 0.01); 
-    sca.scene.position.y= -1.58;
-    sca.scene.position.z= 4;
-    sca.scene.position.x= -5;
+    sca.scene.scale.set(5, 5, 5); 
+    
+    sca.scene.position.y= 1;
+    sca.scene.position.z= 0;
+    sca.scene.position.x= 10
     sca.scene.traverse( function ( child ){
       child.castShadow = true;
       child.receiveShadow = true;
@@ -177,6 +187,85 @@ loader2.load(
 
 	}
 );
+
+const loader4 = new GLTFLoader();
+// // load a resource
+loader4.load(
+	// resource URL
+	'source/seoul.gltf',
+	// called when the resource is loaded
+	function ( sca ) {
+    sca.scene.scale.set(1, 1, 1); 
+    
+    sca.scene.position.y= 1;
+    sca.scene.position.z= 0;
+    sca.scene.position.x= 10
+    sca.scene.traverse( function ( child ){
+      child.castShadow = true;
+      child.receiveShadow = true;
+	  child.userData.link = '1';
+     });
+		scene.add( sca.scene );
+
+		sca.animations; // Array<THREE.AnimationClip>
+		sca.scene; // THREE.Group
+		sca.scenes; // Array<THREE.Group>
+		sca.cameras; // Array<THREE.Camera>
+		sca.asset; // Object
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
+
+// const loader2 = new GLTFLoader();
+// // // load a resource
+// loader2.load(
+// 	// resource URL
+// 	'source/house.glb',
+// 	// called when the resource is loaded
+// 	function ( sca ) {
+//     sca.scene.scale.set(0.01, 0.01, 0.01); 
+//     sca.scene.position.y= -1.58;
+//     sca.scene.position.z= 4;
+//     sca.scene.position.x= -5;
+//     sca.scene.traverse( function ( child ){
+//       child.castShadow = true;
+//       child.receiveShadow = true;
+// 	  child.userData.link = '1';
+//      });
+// 		scene.add( sca.scene );
+
+// 		sca.animations; // Array<THREE.AnimationClip>
+// 		sca.scene; // THREE.Group
+// 		sca.scenes; // Array<THREE.Group>
+// 		sca.cameras; // Array<THREE.Camera>
+// 		sca.asset; // Object
+
+// 	},
+// 	// called while loading is progressing
+// 	function ( xhr ) {
+
+// 		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+// 	},
+// 	// called when loading has errors
+// 	function ( error ) {
+
+// 		console.log( 'An error happened' );
+
+// 	}
+// );
 
 
 //빛
@@ -324,7 +413,7 @@ const starGeo = new THREE.BufferGeometry ()
             
 //fog
 const fogcolor = 0xFFFFFF;
-const fogdensity = 0.2;
+const fogdensity = 0.0;
 
 //wether if
 fetch(url)

@@ -7,7 +7,7 @@ if (WEBGL.isWebGLAvailable()) {
   // 여기다 코드 넣기
   // 장면
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xffffff); 
+  scene.background = new THREE.Color(0xff000f); 
   const axesHelper = new THREE.AxesHelper(5)
   scene.add(axesHelper)
 
@@ -19,7 +19,7 @@ if (WEBGL.isWebGLAvailable()) {
   const renderer = new THREE.WebGLRenderer({
     alpha : true,
     antialias : true
-  });
+  }); 
     
   renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -30,57 +30,57 @@ if (WEBGL.isWebGLAvailable()) {
   controls.update();
 
   
-  const skyMaterialArray = []
-  const texture_ft = new THREE.TextureLoader().load('../ex-12/bay_ft.jpg')
-  const texture_bk = new THREE.TextureLoader().load('../ex-12/bay_bk.jpg')
-  const texture_up = new THREE.TextureLoader().load('../ex-12/bay_up.jpg')
-  const texture_dn = new THREE.TextureLoader().load('../ex-12/bay_dn.jpg')
-  const texture_rt = new THREE.TextureLoader().load('../ex-12/bay_rt.jpg')
-  const texture_lf = new THREE.TextureLoader().load('../ex-12/bay_lf.jpg')
-  
-  skyMaterialArray.push(
-    new THREE.MeshStandardMaterial({
-      map: texture_ft,
-    })
-  )
-  skyMaterialArray.push(
-    new THREE.MeshStandardMaterial({
-      map: texture_bk,
-    })
-  )
-  skyMaterialArray.push(
-    new THREE.MeshStandardMaterial({
-      map: texture_up,
-    })
-  )
-  skyMaterialArray.push(
-    new THREE.MeshStandardMaterial({
-      map: texture_dn,
-    })
-  )
-  skyMaterialArray.push(
-    new THREE.MeshStandardMaterial({
-      map: texture_rt,
-    })
-  )
-  skyMaterialArray.push(
-    new THREE.MeshStandardMaterial({
-      map: texture_lf,
-    })
-  )
+const skyMaterialArray = []
+const texture_ft = new THREE.TextureLoader().load('../ex-12/bay_ft.jpg')
+const texture_bk = new THREE.TextureLoader().load('../ex-12/bay_bk.jpg')
+const texture_up = new THREE.TextureLoader().load('../ex-12/bay_up.jpg')
+const texture_dn = new THREE.TextureLoader().load('../ex-12/bay_dn.jpg')
+const texture_rt = new THREE.TextureLoader().load('../ex-12/bay_rt.jpg')
+const texture_lf = new THREE.TextureLoader().load('../ex-12/bay_lf.jpg')
 
-  // 반복문
-  for (let i = 0; i < 6; i++){
-    skyMaterialArray[i].side = THREE.BackSide
-  }
+skyMaterialArray.push(
+  new THREE.MeshStandardMaterial({
+    map: texture_ft,
+  })
+)
+skyMaterialArray.push(
+  new THREE.MeshStandardMaterial({
+    map: texture_bk,
+  })
+)
+skyMaterialArray.push(
+  new THREE.MeshStandardMaterial({
+    map: texture_up,
+  })
+)
+skyMaterialArray.push(
+  new THREE.MeshStandardMaterial({
+    map: texture_dn,
+  })
+)
+skyMaterialArray.push(
+  new THREE.MeshStandardMaterial({
+    map: texture_rt,
+  })
+)
+skyMaterialArray.push(
+  new THREE.MeshStandardMaterial({
+    map: texture_lf,
+  })
+)
+
+// 반복문
+for (let i = 0; i < 6; i++){
+  skyMaterialArray[i].side = THREE.BackSide
+}
 
 
   //매쉬
   const skyGeometry = new THREE.BoxGeometry(400,400,400 );
-  // const skyMaterial= new THREE.MeshStandardMaterial({
-  //   color:0x333333,
-  //   map: texture,
-  // });
+  const skyMaterial= new THREE.MeshStandardMaterial({
+    color:0x333333,
+    // map: texture,
+  });
   // skyMaterial.side = THREE.BackSide;
   const sky = new THREE.Mesh(skyGeometry, skyMaterialArray);
   scene.add(sky);
