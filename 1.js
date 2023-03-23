@@ -123,6 +123,7 @@ loader01.load(
 
 	}
 );
+scene.fog = new THREE.FogExp2( 0xcccccc, 0.01);
 
 
 			camera.position.z = 5;
