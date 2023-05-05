@@ -19,7 +19,7 @@ const pointer = new THREE.Vector2();
 
 //장면추가
 const scene = new THREE.Scene()
-scene.background = new THREE.Color(0xEEEEEE); 
+scene.background = new THREE.Color(0x99CCFF); 
 
 const modelContainer = new THREE.Group();
 scene.add(modelContainer);
@@ -32,9 +32,9 @@ const fov = 70;
   const near = 0.1  ;
   const far = 1000;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.z = -2.0;
-camera.position.x = -3;
-camera.position.y = 0;
+camera.position.z =-0.3;
+camera.position.x = -2.3;
+camera.position.y = -0.0;
 camera.lookAt(new THREE.Vector3(0,0,0));
 
 //렌더러
@@ -56,6 +56,8 @@ const orbitControls = new OrbitControls(camera, renderer.domElement);
 	 //orbitControls.maxPolarAngle = Math.PI / 2;   //=3.14/2
 
 
+
+	 
 const geometry = new THREE.PlaneGeometry( 1, 1 );
 const material = new THREE.MeshBasicMaterial( {color: 0xffffff, side: THREE.DoubleSide} );
 const plane = new THREE.Mesh( geometry, material );
@@ -64,7 +66,54 @@ plane.position.set(0.0, -1.5, 0.0);
 plane.rotation.x = Math.PI / 2;
 scene.add( plane );
 
+const skyMaterialArray = []
+const texture_ft = new THREE.TextureLoader().load('../ex-12/bay_ft.jpg')
+const texture_bk = new THREE.TextureLoader().load('../ex-12/bay_bk.jpg')
+const texture_up = new THREE.TextureLoader().load('../ex-12/bay_up.jpg')
+const texture_dn = new THREE.TextureLoader().load('../ex-12/bay_dn.jpg')
+const texture_rt = new THREE.TextureLoader().load('../ex-12/bay_rt.jpg')
+const texture_lf = new THREE.TextureLoader().load('../ex-12/bay_lf.jpg')
 
+skyMaterialArray.push(
+  new THREE.MeshStandardMaterial({
+	map: texture_ft,
+  })
+)
+skyMaterialArray.push(
+  new THREE.MeshStandardMaterial({
+	map: texture_bk,
+  })
+)
+skyMaterialArray.push(
+  new THREE.MeshStandardMaterial({
+	map: texture_up,
+  })
+)
+skyMaterialArray.push(
+  new THREE.MeshStandardMaterial({
+	map: texture_dn,
+  })
+)
+skyMaterialArray.push(
+  new THREE.MeshStandardMaterial({
+	map: texture_rt,
+  })
+)
+skyMaterialArray.push(
+  new THREE.MeshStandardMaterial({
+	map: texture_lf,
+  })
+)
+
+// 반복문
+for (let i = 0; i < 6; i++){
+  skyMaterialArray[i].side = THREE.BackSide
+}
+
+const skyGeometry = new THREE.BoxGeometry( 400,400,400 );
+	 
+	  const cube = new THREE.Mesh( skyGeometry, skyMaterialArray );
+	  scene.add( cube );
 
 //obj
 const loader01 = new GLTFLoader();
@@ -83,7 +132,48 @@ loader01.load(
     gltf.scene.traverse( function ( child ){
       child.castShadow = true;
       child.receiveShadow = true;
-	  child.userData.link = "https://jiho.cargo.site/Reading-4";
+	  child.userData.link = "https://jiho6693.github.io/moveinstone/";
+     });
+		scene.add( gltf.scene );
+
+		gltf.animations; // Array<THREE.AnimationClip>
+		gltf.scene; // THREE.Group
+		gltf.scenes; // Array<THREE.Group>
+		gltf.cameras; // Array<THREE.Camera>
+		gltf.asset; // Object
+
+	},
+	// called while loading is progressing
+	function ( xhr ) {
+
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+	},
+	// called when loading has errors
+	function ( error ) {
+
+		console.log( 'An error happened' );
+
+	}
+);
+
+const loader02 = new GLTFLoader();
+// // load a resource
+loader02.load(
+	// resource URL
+	'source/Rock1.glb',
+	// called when the resource is loaded
+	function ( gltf ) {
+    
+    gltf.scene.scale.set(0.5, 0.4, 0.5); 
+    gltf.scene.position.y= -0.4
+    gltf.scene.position.z= -2.5
+    gltf.scene.position.x= -0.8
+	gltf.scene.rotation.y = Math.PI / 2;
+    gltf.scene.traverse( function ( child ){
+      child.castShadow = true;
+      child.receiveShadow = true;
+	  child.userData.link = "./hero.html";
      });
 		scene.add( gltf.scene );
 
@@ -123,7 +213,7 @@ loader1.load(
     sca.scene.traverse( function ( child ){
       child.castShadow = true;
       child.receiveShadow = true;
-	  child.userData.link = 'https://vimeo.com/747416442';
+	  child.userData.link = '1';
      });
 		scene.add( sca.scene );
 
@@ -155,15 +245,15 @@ loader3.load(
 	'source/goodby.glb',
 	// called when the resource is loaded
 	function ( sca ) {
-    sca.scene.scale.set(5, 5, 5); 
+    sca.scene.scale.set(6, 6, 6); 
     
-    sca.scene.position.y= 1;
-    sca.scene.position.z= 0;
-    sca.scene.position.x= 10
+    sca.scene.position.y= 1.2;
+    sca.scene.position.z= -2.5;
+    sca.scene.position.x= 3
     sca.scene.traverse( function ( child ){
       child.castShadow = true;
       child.receiveShadow = true;
-	  child.userData.link = '1';
+	  child.userData.link = './goodbye.html';
      });
 		scene.add( sca.scene );
 
@@ -228,44 +318,44 @@ loader4.load(
 	}
 );
 
-// const loader2 = new GLTFLoader();
-// // // load a resource
-// loader2.load(
-// 	// resource URL
-// 	'source/house.glb',
-// 	// called when the resource is loaded
-// 	function ( sca ) {
-//     sca.scene.scale.set(0.01, 0.01, 0.01); 
-//     sca.scene.position.y= -1.58;
-//     sca.scene.position.z= 4;
-//     sca.scene.position.x= -5;
-//     sca.scene.traverse( function ( child ){
-//       child.castShadow = true;
-//       child.receiveShadow = true;
-// 	  child.userData.link = '1';
-//      });
-// 		scene.add( sca.scene );
+const loader2 = new GLTFLoader();
+// // load a resource
+loader2.load(
+	// resource URL
+	'source/house.glb',
+	// called when the resource is loaded
+	function ( sca ) {
+    sca.scene.scale.set(0.01, 0.01, 0.01); 
+    sca.scene.position.y= -1.58;
+    sca.scene.position.z= 4;
+    sca.scene.position.x= -5;
+    sca.scene.traverse( function ( child ){
+      child.castShadow = true;
+      child.receiveShadow = true;
+	  child.userData.link = '1';
+     });
+		scene.add( sca.scene );
 
-// 		sca.animations; // Array<THREE.AnimationClip>
-// 		sca.scene; // THREE.Group
-// 		sca.scenes; // Array<THREE.Group>
-// 		sca.cameras; // Array<THREE.Camera>
-// 		sca.asset; // Object
+		sca.animations; // Array<THREE.AnimationClip>
+		sca.scene; // THREE.Group
+		sca.scenes; // Array<THREE.Group>
+		sca.cameras; // Array<THREE.Camera>
+		sca.asset; // Object
 
-// 	},
-// 	// called while loading is progressing
-// 	function ( xhr ) {
+	},
+	// called while loading is progressing
+	function ( xhr ) {
 
-// 		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
 
-// 	},
-// 	// called when loading has errors
-// 	function ( error ) {
+	},
+	// called when loading has errors
+	function ( error ) {
 
-// 		console.log( 'An error happened' );
+		console.log( 'An error happened' );
 
-// 	}
-// );
+	}
+);
 
 
 //빛
@@ -412,8 +502,8 @@ const starGeo = new THREE.BufferGeometry ()
             const stars = new THREE.Points(starGeo,starMaterial)
             
 //fog
-const fogcolor = 0xFFFFFF;
-const fogdensity = 0.0;
+const fogcolor = 0xffffff;
+const fogdensity = 0.1;
 
 //wether if
 fetch(url)
@@ -448,7 +538,7 @@ fetch(url)
 
 
 function render(time) {
-time *= 0.00009;  // convert time to seconds  
+time *= 0.00002;  // convert time to seconds  
 directionalLight.position.y = Math.cos( time ) * 3.75 + 1.25;
 
 renderer.render(scene, camera);

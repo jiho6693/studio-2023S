@@ -85,6 +85,8 @@ for (let i = 0; i < 6; i++){
   const sky = new THREE.Mesh(skyGeometry, skyMaterialArray);
   scene.add(sky);
 
+ 
+  
   
   //빛
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);

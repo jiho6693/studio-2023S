@@ -4,8 +4,8 @@ import { GLTFLoader } from 'GLTFLoader';
 
 			const scene = new THREE.Scene();
       scene.background = new THREE.Color(0xff000f); 
-      const axesHelper = new THREE.AxesHelper(5)
-      scene.add(axesHelper)
+      // const axesHelper = new THREE.AxesHelper(5)
+      // scene.add(axesHelper)
 
 
 			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -19,16 +19,17 @@ import { GLTFLoader } from 'GLTFLoader';
 			document.body.appendChild( renderer.domElement );
 
       const controls = new OrbitControls(camera, renderer.domElement);
+      controls.maxPolarAngle = 1
       controls.enableDamping = true;
       controls.update();
 
       const skyMaterialArray = []
-      const texture_ft = new THREE.TextureLoader().load('../ex-12/sleephollow_ft.jpg')
-      const texture_bk = new THREE.TextureLoader().load('../ex-12/sleephollow_bk.jpg')
-      const texture_up = new THREE.TextureLoader().load('../ex-12/sleephollow_up.jpg')
-      const texture_dn = new THREE.TextureLoader().load('../ex-12/sleephollow_dn.jpg')
-      const texture_rt = new THREE.TextureLoader().load('../ex-12/sleephollow_rt.jpg')
-      const texture_lf = new THREE.TextureLoader().load('../ex-12/sleephollow_lf.jpg')
+      const texture_ft = new THREE.TextureLoader().load('../ex-12/kenon_star_ft.jpg')
+      const texture_bk = new THREE.TextureLoader().load('../ex-12/kenon_star_bk.jpg')
+      const texture_up = new THREE.TextureLoader().load('../ex-12/kenon_star_up.jpg')
+      const texture_dn = new THREE.TextureLoader().load('../ex-12/kenon_star_dn.jpg')
+      const texture_rt = new THREE.TextureLoader().load('../ex-12/kenon_star_rt.jpg')
+      const texture_lf = new THREE.TextureLoader().load('../ex-12/kenon_star_lf.jpg')
 
       skyMaterialArray.push(
         new THREE.MeshStandardMaterial({
@@ -66,7 +67,7 @@ import { GLTFLoader } from 'GLTFLoader';
         skyMaterialArray[i].side = THREE.BackSide
       }
 
-      const skyGeometry = new THREE.BoxGeometry( 1,1,1 );
+      const skyGeometry = new THREE.BoxGeometry( 400,400,400 );
 			const skyMaterial = new THREE.MeshBasicMaterial( { color: 0x333333 } );
 			const cube = new THREE.Mesh( skyGeometry, skyMaterialArray );
 			scene.add( cube );
@@ -91,7 +92,7 @@ import { GLTFLoader } from 'GLTFLoader';
 // 	// called when the resource is loaded
 // 	function ( gltf ) {
     
-//     gltf.scene.scale.set(2, 2, 2); 
+//     gltf.scene.scale.set(20, 20, 20); 
 //     gltf.scene.position.y= 3
 //     gltf.scene.position.z= 0.4
 //     gltf.scene.position.x= -0.8
@@ -125,14 +126,15 @@ import { GLTFLoader } from 'GLTFLoader';
 // );
 
 
-			camera.position.z = -2;
+			camera.position.z = 5;
 
 
-      const ambientLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 100);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
       scene.add(ambientLight);
 
 			function animate() {
 				requestAnimationFrame( animate );
+        camera.rotation.y += 0.0002;
 
 			
 
